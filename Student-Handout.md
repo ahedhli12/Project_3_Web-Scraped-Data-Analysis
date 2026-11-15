@@ -85,6 +85,89 @@ First test **one page**, then extend your working extraction to the other pages.
 
 Check robots.txt and the site's terms before collection. Document actual rules, not assumptions. Do not bypass login, CAPTCHAs, or blocks. Missing or unreadable policies mean you should investigate and choose a clearly suitable source.
 
+## Saving your scraped data
+
+After your scraping loop finishes, your records should be stored in a list of dictionaries. Each dictionary represents one row, and its keys become column names. The example below assumes your list is named `records`; use the name from your own code.
+
+Run these cells from the repository folder, where the notebook is saved.
+
+### Step 1: Turn your collected records into a DataFrame
+
+```python
+import pandas as pd
+from pathlib import Path
+
+# records is the list you filled while scraping your website.
+# Do not reset records to an empty list here.
+raw_df = pd.DataFrame(records)
+
+# Check the collected data before saving.
+print("Rows collected:", len(raw_df))
+print(raw_df.head())
+
+# Stop here if nothing was collected; check your URLs and selectors.
+if raw_df.empty:
+    raise ValueError("No data collected. Check your scraping code before saving.")
+```
+
+### Step 2: Save the original scraped values
+
+```python
+# Create the data folder if it does not exist.
+Path("data").mkdir(exist_ok=True)
+
+# Save every row and column without adding the pandas row index.
+raw_df.to_csv("data/raw_data.csv", index=False)
+print("Raw data saved to:", Path("data/raw_data.csv").resolve())
+```
+
+- `to_csv()` writes the DataFrame to a CSV file that can be opened in VS Code or Excel.
+- `"data/raw_data.csv"` means the file is named **raw_data.csv** inside the **data** folder.
+- `index=False` prevents an extra column containing pandas row numbers.
+- Saving to the same filename again **replaces that file**. Keep your raw file unchanged while cleaning.
+
+### Step 3: Save your page collection log
+
+```python
+# page_log is the list of log entries from your collection loop.
+# Each entry records source_url, status, records_extracted, and error.
+page_log_df = pd.DataFrame(page_log)
+page_log_df.to_csv("data/page_log.csv", index=False)
+```
+
+Use your own list name if it differs. This log helps show which five or more pages successfully contributed records.
+
+### Step 4: Load the saved data when working on analysis
+
+```python
+# Read your saved file instead of requesting all the webpages again.
+raw_df = pd.read_csv("data/raw_data.csv")
+print(raw_df.head())
+```
+
+Reading a CSV does not scrape the website again. CSV files do not preserve every Python data type, so inspect `raw_df.dtypes` and convert numeric or date columns when needed.
+
+### Step 5: Save a separate cleaned copy
+
+```python
+# Work on a copy so the original DataFrame stays available.
+clean_df = raw_df.copy()
+
+# TODO: Apply the cleaning your dataset needs here.
+# Check missing values, duplicates, and numeric/date types.
+
+# Run this save step AFTER completing and checking your cleaning.
+Path("cleaned-data").mkdir(exist_ok=True)
+clean_df.to_csv("cleaned-data/cleaned_data.csv", index=False)
+print("Cleaned data saved to:", Path("cleaned-data/cleaned_data.csv").resolve())
+```
+
+Do not mark cleaning complete just because you copied the DataFrame. Explain your checks and changes in the notebook.
+
+### Step 6: Confirm the files were saved
+
+Expand **data** and **cleaned-data** in VS Code's Explorer. Open the CSV files and check the column names and rows. Keep the CSVs in your GitHub submission. Re-running the scraping cells makes new requests; use the saved raw CSV while developing your analysis.
+
 ## 4. Clean before calculating
 For the invented shop example:
 
