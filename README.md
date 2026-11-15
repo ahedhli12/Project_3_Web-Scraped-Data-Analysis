@@ -13,11 +13,8 @@ Assignment 9 introduced HTML, Beautiful Soup, and planning. This project carries
 3. Choose your personal GitHub account. Name your repository **LastName-FirstName-CMP262-Project03-Web-Scraping** and set it to **Public**.
 4. Clone **your own repository**, then open the entire folder in Visual Studio Code.
 5. Install the recommended Python and Jupyter extensions if needed.
-6. In the VS Code terminal, install the packages:
-   ```bash
-   python -m pip install -r requirements.txt
-   ```
-7. Open **WebScrapingProject.ipynb** and select the Python kernel for that same environment.
+6. Open **WebScrapingProject.ipynb** and select your Python kernel.
+7. Run its import cell. **If the imports work, no installation is needed.** If a package is missing, follow the optional installation directions in notebook Section 2.
 8. Read [Student-Handout.md](Student-Handout.md), then complete every notebook TODO.
 9. Complete **AI-Use-Report.md**, even if you did not use AI.
 10. Replace the **Student Project Summary** at the end of this README with your own project details.
@@ -40,18 +37,8 @@ Assignment 9 introduced HTML, Beautiful Soup, and planning. This project carries
 - Save **data/raw_data.csv** and **data/page_log.csv**. The log must show at least five successfully scraped pages with records. Report failures honestly and replace failed pages if necessary.
 - A downloaded ready-made CSV or the small handout example does not fulfill the scraping requirement.
 
-### How to save your scraped data
-After collecting your records, create a DataFrame and save it:
-
-```python
-# records is the list populated by your scraping loop.
-raw_df = pd.DataFrame(records)
-raw_df.to_csv("data/raw_data.csv", index=False)
-```
-
-Run from the repository folder and confirm the data folder exists. Check that the DataFrame contains your expected rows before saving. `index=False` leaves out pandas row numbers. The same filename is overwritten if you save again. Keep raw data separate from cleaned data.
-
-For step-by-step examples covering folder creation, the page log, loading your CSV again, and saving a cleaned copy, see [Saving your scraped data in the handout](Student-Handout.md#saving-your-scraped-data).
+### Saving directions
+The notebook includes commented, runnable saving cells: **Section 5** saves the raw data and page log, **Section 6** explains reloading your CSV, and **Section 7** saves a separate cleaned copy.
 
 ### 3. Explore and clean
 - Display the dataset's size, columns, data types, missing values, and duplicate checks.
