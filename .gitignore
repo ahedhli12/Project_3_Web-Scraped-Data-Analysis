@@ -1,0 +1,9 @@
+.venv/
+venv/
+__pycache__/
+.ipynb_checkpoints/
+.env
+.env.*
+.DS_Store
+Thumbs.db
+# Keep student CSVs, charts, and saved notebook outputs in Git.
