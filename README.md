@@ -40,6 +40,19 @@ Assignment 9 introduced HTML, Beautiful Soup, and planning. This project carries
 - Save **data/raw_data.csv** and **data/page_log.csv**. The log must show at least five successfully scraped pages with records. Report failures honestly and replace failed pages if necessary.
 - A downloaded ready-made CSV or the small handout example does not fulfill the scraping requirement.
 
+### How to save your scraped data
+After collecting your records, create a DataFrame and save it:
+
+```python
+# records is the list populated by your scraping loop.
+raw_df = pd.DataFrame(records)
+raw_df.to_csv("data/raw_data.csv", index=False)
+```
+
+Run from the repository folder and confirm the data folder exists. Check that the DataFrame contains your expected rows before saving. `index=False` leaves out pandas row numbers. The same filename is overwritten if you save again. Keep raw data separate from cleaned data.
+
+For step-by-step examples covering folder creation, the page log, loading your CSV again, and saving a cleaned copy, see [Saving your scraped data in the handout](Student-Handout.md#saving-your-scraped-data).
+
 ### 3. Explore and clean
 - Display the dataset's size, columns, data types, missing values, and duplicate checks.
 - Convert numeric or date text as needed. Explain how you handle missing values, duplicate records, and inconsistent text.
